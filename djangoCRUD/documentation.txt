@@ -1,0 +1,64 @@
+created project
+created app
+sudo pip install djangorestframework
+setting.py -> installed apps -> rest_framework
+sudo pip install psycopg2
+go to pgadmin -> make new db as restfulapiDB
+settings.py -> DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'restfulapiDB',
+        'USER':  'pursharth',
+        'PASSWORD': 'Puru2507@',
+        'HOST': 'localhost',
+    }
+}
+
+- python3 manage.py migrate
+- now on refreshing db in pgadmin, you can see django default tables.
+-  models.py of your app -> create model for your db
+- python3 manage.py makemigrations restfulapi 
+- python3 manage.py migrate
+
+Now when you see tables under pgadmin, this table is added.
+
+- under restapi(app) -> create serializers.py
+
+serializers.py is used to convert data from python to json format and vice versa.
+
+- create viewsets.py in restapi .
+
+- viewsets.py is used to 
+ create  classes like list(), create(),update(),destroy() for methods POST,GET,PUT,DELETE.
+
+- now to map urls into these viewset functions, create router.py inside project
+
+- router.py -
+
+There are two mandatory arguments to the register() method:
+
+prefix - The URL prefix to use for this set of routes.
+viewset - The viewset class.
+
+- now to map , go to urls.py inside project ---> 
+
+urls.py -
+
+from .router import router
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include(router.urls))
+]
+
+
+so our url will look like http://127.0.0.1:8000/api/employee/   
+(api is the base path and employee is the request kept in router.py file )
+
+- python3 manage.py runserver
+
+- we can make requests in the form.
+
+- but we generally make requests from outside application, so to that use postman :
+
+get --> http://127.0.0.1:8000/api/employee/   -> send -> we can see output
